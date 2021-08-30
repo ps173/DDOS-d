@@ -1,4 +1,5 @@
-GATE = require"components/logic-gates"
+drawable = require"components/gates"
+LOGIC_GATES = require"utils/logic-gates"
 
 function love.load()
 end
@@ -7,5 +8,5 @@ function love.update(dt)
 end
 
 function love.draw()
- love.graphics.circle("fill")
+ drawable.gates.draw("or")
 end
