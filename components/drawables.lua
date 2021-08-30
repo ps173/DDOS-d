@@ -5,7 +5,7 @@ TODO : ADD PARTICLE ANIMATIONS TO THESE
 
 local objects = {}
 
--- gates as drawables
+-- gate drawables
 objects.gates = {}
 -- @params gate(string) : name of the gate i.e, and/or
 function objects.gates.draw(gate,x,y) 
@@ -23,6 +23,7 @@ function objects.gates.draw(gate,x,y)
  end
 end
 
+-- enemy drawables
 objects.aimachines = {}
 -- @params name(string) : name of the aimachines i.e, executive,admiral,president
 function objects.aimachines.draw(name,x,y) 
@@ -36,6 +37,23 @@ function objects.aimachines.draw(name,x,y)
  if name=="executive" then
    love.graphics.draw(execimg,x,y)
  end
+end
+
+-- signator drawable
+objects.signator = {}
+-- @params state(boolean) : state of the signator signal
+function objects.signator.draw(state,x,y)
+ local sigimg = love.graphics.newImage("assets/signator.png")
+ if state==true then 
+  love.graphics.setColor(0,1,0)
+  love.graphics.draw(sigimg,x,y)
+ end
+
+ if state==false then 
+  love.graphics.setColor(1,0,0)
+  love.graphics.draw(sigimg,x,y)
+ end
+
 end
 
 return objects
