@@ -31,10 +31,12 @@ function objects.aimachines.draw(name,x,y)
  local admimg = love.graphics.newImage("assets/admir_ai.png")
 
  if name=="admiral" then
+   love.graphics.setColor(1,1,1,1)
    love.graphics.draw(admimg,x,y)
  end
 
  if name=="executive" then
+   love.graphics.setColor(1,1,1,1)
    love.graphics.draw(execimg,x,y)
  end
 end
