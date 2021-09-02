@@ -1,15 +1,22 @@
 Drawables = require"components/drawables"
 LOGIC_GATES = require"utils/logic-gates"
+utils = require"utils/general"
 
 function love.load()
  -- demo Level
  Level = require"levels"
- Mousex = 0
- Mousey = 0
+ Mouse = {
+  x = 0,
+  y = 0,
+ }
+ IsInside = false
 end
 
-function love.update(dt)
+function love.update()
  -- Change the state of Level
+ if love.keyboard.isDown("q") then
+  love.event.quit(1)
+ end
 end
 
 function love.draw()
@@ -22,21 +29,25 @@ function love.draw()
   Drawables.signator.draw(row.state,row.x,row.y)
  end
 
-
- -- temp debug solutions
-love.graphics.print(Mousex,100,10)
-love.graphics.print(Mousey,300,10)
+ -- temp debugger
+ utils.drawVisualDebugger(Level,Mouse)
 
 end
 
-function love.Mousepressed(x,y,button)
+function love.mousepressed(x,y,button)
+ IsInside = false
  if button ==1 then
   for _,table in ipairs(Level.signator) do
-   if table.x == x or table.x +25 >= x and table.y == y or table.y +25 >= y then
+   if (utils.distanceBetween(table.x,x,table.y,y) >= 7
+    and
+    utils.distanceBetween(table.x,x,table.y,y) < 36)
+    then
     table.state = not table.state
+    IsInside = true
    end
+
   end
-  Mousex = x
-  Mousey = y
+  Mouse.x = x
+  Mouse.y = y
  end
 end
