@@ -3,11 +3,11 @@
 
  @params sig1, sig2 == boolean
  @returns boolean
---]] 
+--]]
 local LOGIC_GATES = {}
 
 function LOGIC_GATES.AND(sig1,sig2)
- return (sig1 and sig2)
+ return sig1 and sig2
 end
 
 function LOGIC_GATES.NAND(sig1,sig2)

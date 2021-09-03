@@ -1,23 +1,24 @@
 return {
   aimachines = {
+   state = false,
    name = "executive",
    x = 500,
-   y = 400,
+   y = 300,
   } ,
   gates = {
    name = "and",
    x = 300,
-   y = 400,
+   y = 300,
   } ,
   signator = {
    {
-   x = 200,
-   y = 300,
+   x = 100,
+   y = 200,
    state = true,
    },
    {
-   x = 400,
-   y = 300,
+   x = 100,
+   y = 400,
    state = false,
    }
   },

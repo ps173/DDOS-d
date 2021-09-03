@@ -26,19 +26,28 @@ end
 -- enemy drawables
 objects.aimachines = {}
 -- @params name(string) : name of the aimachines i.e, executive,admiral,president
-function objects.aimachines.draw(name,x,y) 
+-- @params state(bool)  : wether machine is on or not
+function objects.aimachines.draw(state,name,x,y)
  local execimg = love.graphics.newImage("assets/exec_ai.png")
  local admimg = love.graphics.newImage("assets/admir_ai.png")
 
+ if state==false then
+  love.graphics.setColor(1,0,0,1)
+ end
+
+ if state==true then
+  love.graphics.setColor(1,1,1,1)
+ end
+
  if name=="admiral" then
-   love.graphics.setColor(1,1,1,1)
    love.graphics.draw(admimg,x,y)
  end
 
  if name=="executive" then
-   love.graphics.setColor(1,1,1,1)
    love.graphics.draw(execimg,x,y)
  end
+
+
 end
 
 -- signator drawable

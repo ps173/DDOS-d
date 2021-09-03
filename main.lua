@@ -10,6 +10,8 @@ function love.load()
   y = 0,
  }
  IsInside = false
+ SSA = {} -- What is this SystemStateAss ? huh
+
 end
 
 function love.update()
@@ -20,17 +22,21 @@ function love.update()
 end
 
 function love.draw()
- Drawables.aimachines.draw(
-    Level.aimachines.name,
-    Level.aimachines.x,
-    Level.aimachines.y)
- Drawables.gates.draw(Level.gates.name,Level.gates.x,Level.gates.y)
+
  for _, row in ipairs(Level.signator) do
   Drawables.signator.draw(row.state,row.x,row.y)
  end
+ Drawables.gates.draw(Level.gates.name,Level.gates.x,Level.gates.y)
+ Drawables.aimachines.draw(
+    Level.aimachines.state,
+    Level.aimachines.name,
+    Level.aimachines.x,
+    Level.aimachines.y
+    )
+
 
  -- temp debugger
- utils.drawVisualDebugger(Level,Mouse)
+ -- utils.drawVisualDebugger(Level,Mouse)
 
 end
 
@@ -50,4 +56,20 @@ function love.mousepressed(x,y,button)
   Mouse.x = x
   Mouse.y = y
  end
+
+
+ for _,t in ipairs(Level.signator) do
+  if #SSA == 2 then
+   SSA = {}
+  end
+  table.insert(SSA,t.state)
+ end
+
+ for pos in ipairs(SSA) do
+  if pos == 1 then
+   Level.aimachines.state = LOGIC_GATES.AND(SSA[pos],SSA[pos+1])
+  end
+ end
+
+
 end
