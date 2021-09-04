@@ -5,6 +5,7 @@ utils = require"utils/general"
 
 function love.load()
  -- demo Level
+ BgImg = love.graphics.newImage("/assets/bg.png")
  LevelsData = require"levels"
  CurrentLevel = 1
  Level = LevelsData[CurrentLevel]
@@ -23,6 +24,7 @@ function love.load()
 end
 
 function love.update()
+
  -- Change the state of Level
  if love.keyboard.isDown("q") then
   love.event.quit(1)
@@ -37,6 +39,10 @@ function love.update()
 end
 
 function love.draw()
+
+ love.graphics.setColor(1,1,1,0.4)
+ love.graphics.draw(BgImg)
+
  if CurrentLevel > #LevelsData then
   Drawables.splashscreen("You Did It!")
  end
@@ -65,7 +71,7 @@ end
 
 function love.mousepressed(x,y,button)
  IsInside = false
- if button ==1 then
+ if button ==1 and CurrentLevel <= #LevelsData then
   for _,table in ipairs(Level.signator) do
    if (utils.distanceBetween(table.x,x,table.y,y) >= 7
     and
@@ -78,31 +84,32 @@ function love.mousepressed(x,y,button)
   end
   Mouse.x = x
   Mouse.y = y
- end
 
-
- for _,t in ipairs(Level.signator) do
-  if #SSA == #(Level.signator) then
-   SSA = {}
+  for _,t in ipairs(Level.signator) do
+   if #SSA == #(Level.signator) then
+    SSA = {}
+   end
+   table.insert(SSA,t.state)
   end
-  table.insert(SSA,t.state)
- end
 
- for pos in ipairs(SSA) do
-  if pos == 1 then
-   if  Level.aimachines.gatebt == "and" then
-    Level.aimachines.state = utils.AND(SSA[pos],SSA[pos+1])
-   end
-   if  Level.aimachines.gatebt == "or" then
-    Level.aimachines.state = utils.OR(SSA[pos],SSA[pos+1])
-   end
-   if  Level.aimachines.gatebt == "nand" then
-    Level.aimachines.state = utils.NAND(SSA[pos],SSA[pos+1])
-   end
-   if  Level.aimachines.gatebt == "nor" then
-    Level.aimachines.state = utils.NOR(SSA[pos],SSA[pos+1])
+  for pos in ipairs(SSA) do
+   if pos == 1 then
+    if  Level.aimachines.gatebt == "and" then
+     Level.aimachines.state = utils.AND(SSA[pos],SSA[pos+1])
+    end
+    if  Level.aimachines.gatebt == "or" then
+     Level.aimachines.state = utils.OR(SSA[pos],SSA[pos+1])
+    end
+    if  Level.aimachines.gatebt == "nand" then
+     Level.aimachines.state = utils.NAND(SSA[pos],SSA[pos+1])
+    end
+    if  Level.aimachines.gatebt == "nor" then
+     Level.aimachines.state = utils.NOR(SSA[pos],SSA[pos+1])
+    end
    end
   end
  end
+
+
 
 end

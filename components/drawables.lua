@@ -13,12 +13,12 @@ function objects.gates.draw(gate,x,y)
  local orimg = love.graphics.newImage("assets/or_gate.png")
 
  if gate=="and" then
-   love.graphics.setColor(1,0.68,0)
+   love.graphics.setColor(1,1,1,1)
    love.graphics.draw(andimg,x,y)
  end
 
  if gate=="or" then
-   love.graphics.setColor(0,1,0)
+   love.graphics.setColor(1,1,1,1)
    love.graphics.draw(orimg,x,y)
  end
 end
