@@ -1,11 +1,11 @@
 Drawables = require"components/drawables"
 utils = require"utils/general"
 
--- TODO: Completing the level and shifting to something new
-
 function love.load()
- -- demo Level
+ -- Levels and level handler
  BgImg = love.graphics.newImage("/assets/bg.png")
+ Rules = true
+ Tutorial = require"tutorial"
  LevelsData = require"levels"
  CurrentLevel = 1
  Level = LevelsData[CurrentLevel]
@@ -25,10 +25,10 @@ end
 
 function love.update()
 
- -- Change the state of Level
  if love.keyboard.isDown("q") then
   love.event.quit(1)
  end
+
 
  if CurrentLevel <= #LevelsData then
   if Level.aimachines.state == false then
@@ -42,6 +42,7 @@ function love.draw()
 
  love.graphics.setColor(1,1,1,0.4)
  love.graphics.draw(BgImg)
+
 
  if CurrentLevel > #LevelsData then
   Drawables.splashscreen("You Did It!")
@@ -70,10 +71,27 @@ function love.draw()
     if Level.IsCompleted == true then
       LevelCompletehandler()
     end
+
+
  end
+
+ if Rules == true then
+  love.graphics.setColor(1,1,1,1)
+  love.graphics.draw(BgImg)
+  Drawables.gates.draw("and",Tutorial.and_gate.x,Tutorial.and_gate.y)
+  Drawables.gates.draw("or",Tutorial.or_gate.x,Tutorial.or_gate.y)
+  Drawables.aimachines.draw(true,"executive",Tutorial.aimachines.x,Tutorial.aimachines.y)
+  Drawables.signator.draw(true,Tutorial.signator.x,Tutorial.signator.y)
+ end
+ 
  -- temp debugger
  -- utils.drawVisualDebugger(Level,Mouse)
+end
 
+function love.keypressed(key)
+ if key == "t" then 
+  Rules = not Rules  
+ end
 end
 
 function love.mousepressed(x,y,button)
@@ -116,7 +134,5 @@ function love.mousepressed(x,y,button)
    end
   end
  end
-
-
 
 end
