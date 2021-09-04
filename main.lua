@@ -1,16 +1,24 @@
 Drawables = require"components/drawables"
-LOGIC_GATES = require"utils/logic-gates"
 utils = require"utils/general"
+
+-- TODO: Completing the level and shifting to something new
 
 function love.load()
  -- demo Level
- Level = require"levels"
+ LevelsData = require"levels"
+ CurrentLevel = 1
+ Level = LevelsData[CurrentLevel]
  Mouse = {
   x = 0,
   y = 0,
  }
  IsInside = false
  SSA = {} -- What is this SystemStateAss ? huh
+
+ function LevelCompletehandler()
+  CurrentLevel = CurrentLevel + 1
+  Level = LevelsData[CurrentLevel]
+ end
 
 end
 
@@ -19,22 +27,37 @@ function love.update()
  if love.keyboard.isDown("q") then
   love.event.quit(1)
  end
+
+ if CurrentLevel <= #LevelsData then
+  if Level.aimachines.state == false then
+   Level.IsCompleted = true
+  end
+ end
+
 end
 
 function love.draw()
-
- for _, row in ipairs(Level.signator) do
-  Drawables.signator.draw(row.state,row.x,row.y)
+ if CurrentLevel > #LevelsData then
+  Drawables.splashscreen("You Did It!")
  end
- Drawables.gates.draw(Level.gates.name,Level.gates.x,Level.gates.y)
- Drawables.aimachines.draw(
-    Level.aimachines.state,
-    Level.aimachines.name,
-    Level.aimachines.x,
-    Level.aimachines.y
-    )
 
-
+ if CurrentLevel <= #LevelsData then
+   if Level.IsCompleted == false then
+     for _, row in ipairs(Level.signator) do
+      Drawables.signator.draw(row.state,row.x,row.y)
+     end
+     Drawables.gates.draw(Level.aimachines.gatebt,Level.gates.x,Level.gates.y)
+     Drawables.aimachines.draw(
+        Level.aimachines.state,
+        Level.aimachines.name,
+        Level.aimachines.x,
+        Level.aimachines.y
+        )
+    end
+    if Level.IsCompleted == true then
+      LevelCompletehandler()
+    end
+ end
  -- temp debugger
  -- utils.drawVisualDebugger(Level,Mouse)
 
@@ -59,7 +82,7 @@ function love.mousepressed(x,y,button)
 
 
  for _,t in ipairs(Level.signator) do
-  if #SSA == 2 then
+  if #SSA == #(Level.signator) then
    SSA = {}
   end
   table.insert(SSA,t.state)
@@ -67,9 +90,19 @@ function love.mousepressed(x,y,button)
 
  for pos in ipairs(SSA) do
   if pos == 1 then
-   Level.aimachines.state = LOGIC_GATES.AND(SSA[pos],SSA[pos+1])
+   if  Level.aimachines.gatebt == "and" then
+    Level.aimachines.state = utils.AND(SSA[pos],SSA[pos+1])
+   end
+   if  Level.aimachines.gatebt == "or" then
+    Level.aimachines.state = utils.OR(SSA[pos],SSA[pos+1])
+   end
+   if  Level.aimachines.gatebt == "nand" then
+    Level.aimachines.state = utils.NAND(SSA[pos],SSA[pos+1])
+   end
+   if  Level.aimachines.gatebt == "nor" then
+    Level.aimachines.state = utils.NOR(SSA[pos],SSA[pos+1])
+   end
   end
  end
-
 
 end

@@ -55,16 +55,23 @@ objects.signator = {}
 -- @params state(boolean) : state of the signator signal
 function objects.signator.draw(state,x,y)
  local sigimg = love.graphics.newImage("assets/signator.png")
- if state==true then 
+ if state==true then
   love.graphics.setColor(0,1,0)
   love.graphics.draw(sigimg,x,y)
  end
 
- if state==false then 
+ if state==false then
   love.graphics.setColor(1,0,0)
   love.graphics.draw(sigimg,x,y)
  end
 
+end
+
+function objects.splashscreen(text)
+ love.graphics.setColor(0,0,1,0.55)
+ love.graphics.rectangle("fill",0,0,800,640)
+ love.graphics.setColor(1,1,1,1)
+ love.graphics.print(text,390,300)
 end
 
 return objects

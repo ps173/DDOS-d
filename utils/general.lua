@@ -30,4 +30,28 @@ end
 
 end
 
+--[[
+ Logic Gates for the game
+
+ @params sig1, sig2 == boolean
+ @returns boolean
+--]]
+
+function M.AND(sig1,sig2)
+ return sig1 and sig2
+end
+
+function M.NAND(sig1,sig2)
+ return not(sig1 and sig2)
+end
+
+function M.OR(sig1,sig2)
+ return (sig1 or sig2)
+end
+
+function M.NOR(sig1,sig2)
+ return not(sig1 or sig2)
+end
+
+
 return M
