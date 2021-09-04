@@ -67,6 +67,11 @@ function objects.signator.draw(state,x,y)
 
 end
 
+function objects.wire(x1,y1,x2,y2)
+ love.graphics.setColor(66/255,245/255,227/255)
+ love.graphics.line(x1,y1,x2,y2)
+end
+
 function objects.splashscreen(text)
  love.graphics.setColor(0,0,1,0.55)
  love.graphics.rectangle("fill",0,0,800,640)

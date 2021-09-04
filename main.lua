@@ -48,8 +48,15 @@ function love.draw()
  end
 
  if CurrentLevel <= #LevelsData then
+  -- Drawing the wires
+   Drawables.wire(Level.gates.x+16,
+                  Level.gates.y+16,
+                  Level.aimachines.x+16,
+                  Level.aimachines.y+16)
+
    if Level.IsCompleted == false then
      for _, row in ipairs(Level.signator) do
+      Drawables.wire(row.x+16,row.y+16,Level.gates.x+16,Level.gates.y+16)
       Drawables.signator.draw(row.state,row.x,row.y)
      end
      Drawables.gates.draw(Level.aimachines.gatebt,Level.gates.x,Level.gates.y)
