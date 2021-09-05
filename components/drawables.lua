@@ -67,7 +67,9 @@ function objects.signator.draw(state,x,y)
 
 end
 
-function object.infotext(text)
+function objects.infotext(text,x,y)
+ love.graphics.setColor(252/255,3/255,202/255)
+ love.graphics.print(text,x,y)
 end
 
 function objects.wire(x1,y1,x2,y2)
@@ -84,6 +86,17 @@ end
 
 function objects.tutorialscreen()
  love.graphics.clear()
+end
+
+function objects.bigtext(text,x,y)
+ love.graphics.setColor(3/255,252/255,186/255)
+ love.graphics.print(text,x,y)
+end
+
+function objects.transitionScreen(background,text,x,y)
+      love.graphics.setColor(1,1,1,1)
+      love.graphics.draw(background)
+      Drawables.bigtext(text,x,y)
 end
 
 return objects

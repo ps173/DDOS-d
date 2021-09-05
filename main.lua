@@ -13,22 +13,25 @@ function love.load()
   x = 0,
   y = 0,
  }
+ TransitionCounter = 0
  IsInside = false
  SSA = {} -- What is this SystemStateAss ? huh
 
  function LevelCompletehandler()
+  TransitionCounter = 0
   CurrentLevel = CurrentLevel + 1
   Level = LevelsData[CurrentLevel]
  end
 
 end
 
-function love.update()
+function love.update(dt)
+
+ TransitionCounter = TransitionCounter + 1 * dt
 
  if love.keyboard.isDown("q") then
   love.event.quit(1)
  end
-
 
  if CurrentLevel <= #LevelsData then
   if Level.aimachines.state == false then
@@ -69,28 +72,38 @@ function love.draw()
         )
     end
     if Level.IsCompleted == true then
+     Drawables.transitionScreen(BgImg,"Great You did it! Loading Next Level",500,40)
+     if TransitionCounter > 3 then
       LevelCompletehandler()
+     end
     end
 
 
  end
 
  if Rules == true then
+  TransitionCounter=0
   love.graphics.setColor(1,1,1,1)
   love.graphics.draw(BgImg)
-  Drawables.gates.draw("and",Tutorial.and_gate.x,Tutorial.and_gate.y)
-  Drawables.gates.draw("or",Tutorial.or_gate.x,Tutorial.or_gate.y)
-  Drawables.aimachines.draw(true,"executive",Tutorial.aimachines.x,Tutorial.aimachines.y)
-  Drawables.signator.draw(true,Tutorial.signator.x,Tutorial.signator.y)
+  Drawables.gates.draw("and",Tutorial.and_gate.x,Tutorial.and_gate.y-50)
+  Drawables.gates.draw("or",Tutorial.or_gate.x,Tutorial.or_gate.y-50)
+  Drawables.aimachines.draw(true,"executive",Tutorial.aimachines.x,Tutorial.aimachines.y-50)
+  Drawables.signator.draw(true,Tutorial.signator.x,Tutorial.signator.y-50)
+  Drawables.infotext(Tutorial.story_text, 100,100)
+  Drawables.infotext(Tutorial.or_gate.text, Tutorial.or_gate.x-50, Tutorial.or_gate.y)
+  Drawables.infotext(Tutorial.and_gate.text, Tutorial.and_gate.x-50, Tutorial.and_gate.y)
+  Drawables.infotext(Tutorial.signator.text, Tutorial.signator.x-50, Tutorial.signator.y)
+  Drawables.infotext(Tutorial.aimachines.text, Tutorial.aimachines.x-50, Tutorial.aimachines.y)
+  Drawables.infotext("Press t toggle this menu", 600 , 600)
  end
- 
+
  -- temp debugger
  -- utils.drawVisualDebugger(Level,Mouse)
 end
 
 function love.keypressed(key)
- if key == "t" then 
-  Rules = not Rules  
+ if key == "t" then
+  Rules = not Rules
  end
 end
 
