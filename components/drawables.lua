@@ -2,13 +2,14 @@
 Drawing Logic Gates
 TODO : ADD PARTICLE ANIMATIONS TO THESE
 --]]
+HugeFont = love.graphics.setNewFont(18)
 
 local objects = {}
 
 -- gate drawables
 objects.gates = {}
 -- @params gate(string) : name of the gate i.e, and/or
-function objects.gates.draw(gate,x,y) 
+function objects.gates.draw(gate,x,y)
  local andimg = love.graphics.newImage("assets/and_gate.png")
  local orimg = love.graphics.newImage("assets/or_gate.png")
 
@@ -77,18 +78,12 @@ function objects.wire(x1,y1,x2,y2)
  love.graphics.line(x1,y1,x2,y2)
 end
 
-function objects.splashscreen(text)
- love.graphics.setColor(0,0,1,0.55)
- love.graphics.rectangle("fill",0,0,800,640)
- love.graphics.setColor(1,1,1,1)
- love.graphics.print(text,390,300)
-end
-
 function objects.tutorialscreen()
  love.graphics.clear()
 end
 
 function objects.bigtext(text,x,y)
+ love.graphics.setFont(HugeFont)
  love.graphics.setColor(3/255,252/255,186/255)
  love.graphics.print(text,x,y)
 end

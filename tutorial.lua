@@ -3,6 +3,7 @@ return {
   This world is ruled by evil ai mechs now.  To destroy them you have to stand 
   behind wires and disable them using your knowledge and logic. Disable all of 
   them and get your world back.
+  (Note use mouse right click to click things and q to quit)
  ]],
  signator = {
   x = 200,
